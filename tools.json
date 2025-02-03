@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Lookup",
+    "description": "Perform secure password hash lookups using the Range API without submitting sensitive data to the server.",
+    "website": "https://lookup.yack.one",
+    "github": "https://github.com/yack-security/weakpass/tree/main/tools/lookup",
+    "tags": ["weakpass"]
+  },
+  {
+    "name": "Passgen",
+    "description": "Generate a wordlist based on user-provided keywords for targeted password testing.",
+    "website": "https://passgen.yack.one",
+    "github": "https://github.com/yack-security/weakpass/tree/main/tools/passgen",
+    "tags": ["weakpass"]
+  },
+  {
+    "name": "Passcheck",
+    "description": "Discover if your password is in the weakpass_4 wordlist or vulnerable to advanced rule-based attacks.",
+    "website": "https://passcheck.yack.one",
+    "github": "https://github.com/yack-security/weakpass/tree/main/tools/passcheck",
+    "tags": ["weakpass"]
+  },
+  {
+    "name": "IP Subnet Calculator",
+    "description": "Calculates subnet masks for standard and non-standard IP ranges, calculates CIDR prefixes from subnet masks, calculates subnet masks from CIDR prefixes.",
+    "website": "https://subnet.yack.one/",
+    "github": "https://github.com/yack-security/IPSubnetCalculator/tree/yack",
+    "tags": ["utility"]
+  },
+  {
+    "name": "Get Public IP",
+    "description": "This is a simple Cloudflare Worker that returns your client public IP address. No extra stuff like tracking or ads, just your IP address.",
+    "website": "https://ip.yack.one",
+    "github": "https://github.com/yack-security/CFWorker_PublicIP",
+    "tags": ["utility"]
+  },
+  {
+    "name": "BloodHound Neo4j wrapper",
+    "description": "This tool help you manage multiple databases from bloodhound / neo4j.",
+    "website": "https://github.com/yack-security/BloodHound-Neo4j-wrapper",
+    "github": "https://github.com/yack-security/BloodHound-Neo4j-wrapper",
+    "tags": ["bloodhound"]
+  },
+  {
+    "name": "Get Cities",
+    "description": "This Cloudflare Worker fetches city data from the Countries Now and allows API filtering by country, city name prefix, and the number of cities returned.",
+    "website": "https://cities.yack.one",
+    "github": "https://github.com/yack-security/CFWorker_GetCities",
+    "tags": ["utility"]
+  }
+]
