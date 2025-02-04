@@ -47,5 +47,19 @@
     "website": "https://cities.yack.one",
     "github": "https://github.com/yack-security/CFWorker_GetCities",
     "tags": ["utility"]
+  },
+  {
+    "name": "Cloudflare Access Group IP updater",
+    "description": "Cloudflare ZeroTrust Access Group IP updater.",
+    "website": "https://github.com/som3canadian/cloudflare-access-group-ip-updater",
+    "github": "https://github.com/som3canadian/cloudflare-access-group-ip-updater",
+    "tags": ["cloudflare"]
+  },
+  {
+    "name": "BloodHound CustomQueries Toolset",
+    "description": "Tool to import your custom queries from BloodHound 'Legacy' to BloodHound 'Community'.",
+    "website": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
+    "github": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
+    "tags": ["bloodhound"]
   }
 ]
