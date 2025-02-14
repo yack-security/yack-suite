@@ -61,5 +61,12 @@
     "website": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
     "github": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
     "tags": ["bloodhound"]
+  },
+  {
+    "name": "Cloudflare-KV-Manager",
+    "description": "The missing tool for your Cloudflare KV. A more complete and simple solution for managing Cloudflare KV storage. Include a web interface.",
+    "website": "https://github.com/som3canadian/Cloudflare-KV-Manager",
+    "github": "https://github.com/som3canadian/Cloudflare-KV-Manager",
+    "tags": ["cloudflare"]
   }
 ]
