@@ -1,7 +1,7 @@
 [
   {
     "name": "PSWD",
-    "description": "🔑 Simple secure password generator.",
+    "description": "🔑 Simple secure password generator. Password generation should be simple and secure.",
     "website": "https://password.yack.one/",
     "github": "https://github.com/yack-security/pswd/tree/yack",
     "tags": ["utility"]
