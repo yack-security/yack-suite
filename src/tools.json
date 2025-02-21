@@ -71,7 +71,7 @@
   },
   {
     "name": "Sharing is Caring",
-    "description": "Compare the shares access between multiple users",
+    "description": "Compare the shares access between multiple users within your Active Directory environment.",
     "website": "https://github.com/yack-security/sharing_is_caring_v2",
     "github": "https://github.com/yack-security/sharing_is_caring_v2",
     "tags": ["utility"]
