@@ -1,5 +1,12 @@
 [
   {
+    "name": "PSWD",
+    "description": "🔑 Simple secure password generator.",
+    "website": "https://password.yack.one/",
+    "github": "https://github.com/yack-security/pswd/tree/yack",
+    "tags": ["utility"]
+  },
+  {
     "name": "Lookup",
     "description": "Perform secure password hash lookups using the Range API without submitting sensitive data to the server.",
     "website": "https://lookup.yack.one",
@@ -61,6 +68,13 @@
     "website": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
     "github": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
     "tags": ["bloodhound"]
+  },
+  {
+    "name": "Sharing is Caring",
+    "description": "Compare the shares access between multiple users",
+    "website": "https://github.com/yack-security/sharing_is_caring_v2",
+    "github": "https://github.com/yack-security/sharing_is_caring_v2",
+    "tags": ["utility"]
   },
   {
     "name": "Cloudflare-KV-Manager",
