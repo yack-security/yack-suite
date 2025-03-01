@@ -90,13 +90,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 4px #444;
 }
 .card-custom:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .badge {
-  background-color: #3beabc;
-  color: #181818;
+  background-color: #7a00f9;
+  color: white;
 }
 
 .btn-website {
@@ -318,4 +318,64 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     margin: 1rem auto 0 auto;
   }
+}
+
+/* Filter Controls Styles */
+.filter-controls {
+  background-color: #231f20;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group-text {
+  background-color: #3beabc;
+  border-color: #3beabc;
+  color: white;
+}
+
+.form-control, .form-select {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #2a2a2a;
+  border-color: #3beabc;
+  box-shadow: 0 0 0 0.25rem rgba(122, 0, 249, 0.25);
+  color: #fff;
+}
+
+.form-select option {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.filter-status {
+  color: #d2d6de;
+  font-size: 0.9rem;
+}
+
+.btn-reset {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.btn-reset:hover {
+  background-color: #ff0049;
+  color: #fff;
+}
+
+.no-results {
+  color: #d2d6de;
+  padding: 40px 0;
+}
+
+.no-results i {
+  color: #3beabc;
 }

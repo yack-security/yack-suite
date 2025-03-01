@@ -35,6 +35,44 @@
     <p class="text-center description">
       Yack Suite is a collection of tools made or fork / modified by <a class="description-link" href="https://yack.one" target="_blank">Yack Security</a>.
     </p>
+
+    <!-- Filter Controls -->
+    <div class="filter-controls mb-4">
+      <div class="row g-3">
+        <!-- Search Bar -->
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+            <input type="text" id="search-input" class="form-control" placeholder="Search tools...">
+          </div>
+        </div>
+
+        <!-- Tag Filter -->
+        <div class="col-md-3">
+          <select id="tag-filter" class="form-select">
+            <option value="">All Tags</option>
+            <!-- Tags will be populated dynamically -->
+          </select>
+        </div>
+
+        <!-- Name Filter -->
+        <div class="col-md-3">
+          <select id="name-filter" class="form-select">
+            <option value="">All Tools</option>
+            <!-- Tool names will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Filter Status -->
+      <div class="mt-3 text-center">
+        <span id="filter-status" class="filter-status"></span>
+        <button id="clear-filters" class="btn btn-sm btn-reset ms-2" style="display: none;">
+          <i class="fa-solid fa-times"></i> Clear Filters
+        </button>
+      </div>
+    </div>
+
     <div id="tool-cards" class="row g-3 mt-5 mb-5"></div>
   </div>
   <footer class="main-footer">
@@ -119,54 +157,197 @@
   <script>document.getElementById("footerYear").textContent = new Date().getFullYear();</script>
 
   <script>
-    fetch("tools.json")
-      .then(response => response.json())
-      .then(tools => {
-        const toolContainer = document.getElementById("tool-cards");
+    // Global variables
+    let allTools = [];
+    let filteredTools = [];
 
-        tools.forEach(tool => {
-          const col = document.createElement("div");
-          col.className = "col-md-6 col-lg-4";
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load tools data
+      loadTools();
 
-          // Create card using standard bootstrap classes
-          col.innerHTML = `
-            <div class="card card-custom h-100 d-flex flex-column">
-              <div class="card-body flex-grow-1">
-                <h5 class="card-title">${tool.name}</h5>
-                <p class="card-text">${tool.description}</p>
-                <div class="mb-2">
-                  ${tool.tags
-                    .map(tag => `<span class="badge me-1">${tag}</span>`)
-                    .join("")}
-                </div>
-              </div>
-              <div class="card-footer bg-transparent border-0 mt-auto">
-                <a
-                  href="${tool.website}"
-                  class="btn btn-website me-2 mb-2 mb-sm-0"
-                  target="_blank"
-                  title="Website"
-                  aria-label="Website"
-                >
-                  <i class="bi bi-globe"></i>
-                </a>
-                <a
-                  href="${tool.github}"
-                  class="btn btn-github me-2 mb-2 mb-sm-0"
-                  target="_blank"
-                  title="GitHub"
-                  aria-label="GitHub"
-                >
-                  <i class="bi bi-github"></i>
-                </a>
+      // Set up event listeners
+      document.getElementById('search-input').addEventListener('input', applyFilters);
+      document.getElementById('tag-filter').addEventListener('change', applyFilters);
+      document.getElementById('name-filter').addEventListener('change', applyFilters);
+      document.getElementById('clear-filters').addEventListener('click', clearFilters);
+    });
+
+    // Load tools from JSON file
+    function loadTools() {
+      fetch("tools.json")
+        .then(response => response.json())
+        .then(tools => {
+          allTools = tools;
+          filteredTools = [...allTools];
+
+          // Populate filters
+          populateFilters(tools);
+
+          // Display all tools initially
+          displayTools(tools);
+
+          // Initialize filter status
+          updateFilterStatus();
+        })
+        .catch(error => console.error("Error loading tools:", error));
+    }
+
+    // Populate filter dropdowns
+    function populateFilters(tools) {
+      // Collect all unique tags
+      const allTags = [];
+      tools.forEach(tool => {
+        tool.tags.forEach(tag => {
+          if (!allTags.includes(tag)) {
+            allTags.push(tag);
+          }
+        });
+      });
+
+      // Sort tags alphabetically for the filter dropdown
+      allTags.sort();
+
+      // Populate tag filter
+      const tagFilter = document.getElementById('tag-filter');
+      allTags.forEach(tag => {
+        const option = document.createElement('option');
+        option.value = tag;
+        option.textContent = tag;
+        tagFilter.appendChild(option);
+      });
+
+      // Get all tool names and sort them alphabetically for the filter dropdown
+      const toolNames = tools.map(tool => tool.name);
+      toolNames.sort();
+
+      // Populate name filter
+      const nameFilter = document.getElementById('name-filter');
+      toolNames.forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = name;
+        nameFilter.appendChild(option);
+      });
+    }
+
+    // Apply all filters
+    function applyFilters() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const selectedTag = document.getElementById('tag-filter').value;
+      const selectedName = document.getElementById('name-filter').value;
+
+      // Filter tools based on criteria
+      filteredTools = allTools.filter(tool => {
+        // Search term filter (check name and description)
+        const matchesSearch = searchTerm === '' ||
+          tool.name.toLowerCase().includes(searchTerm) ||
+          tool.description.toLowerCase().includes(searchTerm);
+
+        // Tag filter
+        const matchesTag = selectedTag === '' || tool.tags.includes(selectedTag);
+
+        // Name filter
+        const matchesName = selectedName === '' || tool.name === selectedName;
+
+        return matchesSearch && matchesTag && matchesName;
+      });
+
+      // Display filtered tools
+      displayTools(filteredTools);
+
+      // Update filter status
+      updateFilterStatus();
+
+      // Show/hide clear filters button
+      const clearFiltersBtn = document.getElementById('clear-filters');
+      const hasActiveFilters = searchTerm !== '' || selectedTag !== '' || selectedName !== '';
+      clearFiltersBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
+    }
+
+    // Update filter status text
+    function updateFilterStatus() {
+      const statusElement = document.getElementById('filter-status');
+      if (filteredTools.length === allTools.length) {
+        statusElement.textContent = `Showing all ${allTools.length} tools`;
+      } else {
+        statusElement.textContent = `Showing ${filteredTools.length} of ${allTools.length} tools`;
+      }
+    }
+
+    // Clear all filters
+    function clearFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('tag-filter').value = '';
+      document.getElementById('name-filter').value = '';
+
+      // Re-apply filters (which will now show all)
+      applyFilters();
+    }
+
+    // Display tools in the container
+    function displayTools(tools) {
+      const toolContainer = document.getElementById("tool-cards");
+      toolContainer.innerHTML = '';
+
+      if (tools.length === 0) {
+        // No tools match the filters
+        const noResults = document.createElement('div');
+        noResults.className = 'col-12 text-center mt-4';
+        noResults.innerHTML = `
+          <div class="no-results">
+            <i class="fa-solid fa-search fa-2x mb-3"></i>
+            <h4>No tools found</h4>
+            <p>Try adjusting your filters or search term</p>
+          </div>
+        `;
+        toolContainer.appendChild(noResults);
+        return;
+      }
+
+      // Display matching tools
+      tools.forEach(tool => {
+        const col = document.createElement("div");
+        col.className = "col-md-6 col-lg-4";
+
+        // Create card using standard bootstrap classes
+        col.innerHTML = `
+          <div class="card card-custom h-100 d-flex flex-column">
+            <div class="card-body flex-grow-1">
+              <h5 class="card-title">${tool.name}</h5>
+              <p class="card-text">${tool.description}</p>
+              <div class="mb-2">
+                ${tool.tags
+                  .map(tag => `<span class="badge me-1">${tag}</span>`)
+                  .join("")}
               </div>
             </div>
-          `;
+            <div class="card-footer bg-transparent border-0 mt-auto">
+              <a
+                href="${tool.website}"
+                class="btn btn-website me-2 mb-2 mb-sm-0"
+                target="_blank"
+                title="Website"
+                aria-label="Website"
+              >
+                <i class="bi bi-globe"></i>
+              </a>
+              <a
+                href="${tool.github}"
+                class="btn btn-github me-2 mb-2 mb-sm-0"
+                target="_blank"
+                title="GitHub"
+                aria-label="GitHub"
+              >
+                <i class="bi bi-github"></i>
+              </a>
+            </div>
+          </div>
+        `;
 
-          toolContainer.appendChild(col);
-        });
-      })
-      .catch(error => console.error(error));
+        toolContainer.appendChild(col);
+      });
+    }
   </script>
   <script
   id="counterscale-script"
