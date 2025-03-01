@@ -379,3 +379,45 @@ h1, h2, h3, h4, h5, h6 {
 .no-results i {
   color: #3beabc;
 }
+
+/* Additional responsive styles */
+@media (max-width: 576px) {
+  .filter-controls {
+    padding: 15px;
+  }
+
+  .filter-controls .row > div {
+    margin-bottom: 10px;
+  }
+
+  .filter-status {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .btn-reset {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .card-custom {
+    margin-bottom: 15px;
+  }
+
+  .btn-website, .btn-github {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Force single column on very small devices */
+  #tool-cards > div {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Improve spacing between cards */
+.row.g-3 {
+  --bs-gutter-y: 1.5rem;
+}

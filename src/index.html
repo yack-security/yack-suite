@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yack Suite</title>
   <link rel="shortcut icon" href="./img/favicon.ico">
 
@@ -40,7 +41,7 @@
     <div class="filter-controls mb-4">
       <div class="row g-3">
         <!-- Search Bar -->
-        <div class="col-md-6">
+        <div class="col-12 col-md-8">
           <div class="input-group">
             <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
             <input type="text" id="search-input" class="form-control" placeholder="Search tools...">
@@ -48,18 +49,10 @@
         </div>
 
         <!-- Tag Filter -->
-        <div class="col-md-3">
+        <div class="col-12 col-md-4">
           <select id="tag-filter" class="form-select">
             <option value="">All Tags</option>
             <!-- Tags will be populated dynamically -->
-          </select>
-        </div>
-
-        <!-- Name Filter -->
-        <div class="col-md-3">
-          <select id="name-filter" class="form-select">
-            <option value="">All Tools</option>
-            <!-- Tool names will be populated dynamically -->
           </select>
         </div>
       </div>
@@ -73,7 +66,7 @@
       </div>
     </div>
 
-    <div id="tool-cards" class="row g-3 mt-5 mb-5"></div>
+    <div id="tool-cards" class="row g-3 mt-5 mb-5 row-cols-1 row-cols-md-2 row-cols-lg-3"></div>
   </div>
   <footer class="main-footer">
     <!-- Top Grid Row -->
@@ -169,7 +162,6 @@
       // Set up event listeners
       document.getElementById('search-input').addEventListener('input', applyFilters);
       document.getElementById('tag-filter').addEventListener('change', applyFilters);
-      document.getElementById('name-filter').addEventListener('change', applyFilters);
       document.getElementById('clear-filters').addEventListener('click', clearFilters);
     });
 
@@ -216,26 +208,12 @@
         option.textContent = tag;
         tagFilter.appendChild(option);
       });
-
-      // Get all tool names and sort them alphabetically for the filter dropdown
-      const toolNames = tools.map(tool => tool.name);
-      toolNames.sort();
-
-      // Populate name filter
-      const nameFilter = document.getElementById('name-filter');
-      toolNames.forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        nameFilter.appendChild(option);
-      });
     }
 
     // Apply all filters
     function applyFilters() {
       const searchTerm = document.getElementById('search-input').value.toLowerCase();
       const selectedTag = document.getElementById('tag-filter').value;
-      const selectedName = document.getElementById('name-filter').value;
 
       // Filter tools based on criteria
       filteredTools = allTools.filter(tool => {
@@ -247,10 +225,7 @@
         // Tag filter
         const matchesTag = selectedTag === '' || tool.tags.includes(selectedTag);
 
-        // Name filter
-        const matchesName = selectedName === '' || tool.name === selectedName;
-
-        return matchesSearch && matchesTag && matchesName;
+        return matchesSearch && matchesTag;
       });
 
       // Display filtered tools
@@ -261,7 +236,7 @@
 
       // Show/hide clear filters button
       const clearFiltersBtn = document.getElementById('clear-filters');
-      const hasActiveFilters = searchTerm !== '' || selectedTag !== '' || selectedName !== '';
+      const hasActiveFilters = searchTerm !== '' || selectedTag !== '';
       clearFiltersBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
     }
 
@@ -279,7 +254,6 @@
     function clearFilters() {
       document.getElementById('search-input').value = '';
       document.getElementById('tag-filter').value = '';
-      document.getElementById('name-filter').value = '';
 
       // Re-apply filters (which will now show all)
       applyFilters();
@@ -308,7 +282,7 @@
       // Display matching tools
       tools.forEach(tool => {
         const col = document.createElement("div");
-        col.className = "col-md-6 col-lg-4";
+        col.className = "col"; // Let Bootstrap row-cols handle the sizing
 
         // Create card using standard bootstrap classes
         col.innerHTML = `
