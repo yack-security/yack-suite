@@ -28,6 +28,13 @@
     "tags": ["weakpass"]
   },
   {
+    "name": "Yack AttackForge Tooling",
+    "description": "Tools made by Yack for interacting with the AttackForge REST API and events API.",
+    "website": "https://github.com/yack-security/attackforge-tools",
+    "github": "https://github.com/yack-security/attackforge-tools",
+    "tags": ["attackforge, cloudflare"]
+  },
+  {
     "name": "IP Subnet Calculator",
     "description": "Calculates subnet masks for standard and non-standard IP ranges, calculates CIDR prefixes from subnet masks, calculates subnet masks from CIDR prefixes.",
     "website": "https://subnet.yack.one/",
