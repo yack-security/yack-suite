@@ -32,7 +32,7 @@
     "description": "Tools made by Yack for interacting with the AttackForge REST API and events API.",
     "website": "https://github.com/yack-security/attackforge-tools",
     "github": "https://github.com/yack-security/attackforge-tools",
-    "tags": ["attackforge, cloudflare"]
+    "tags": ["attackforge", "cloudflare"]
   },
   {
     "name": "IP Subnet Calculator",
