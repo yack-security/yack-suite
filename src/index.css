@@ -38,6 +38,10 @@
   color: #444;
 }
 
+.search-input::placeholder {
+  color: #fff;
+}
+
 html, body {
   background-color: #181818;
   font-family: 'Montserrat', sans-serif;
