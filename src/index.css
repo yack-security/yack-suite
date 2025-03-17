@@ -38,8 +38,8 @@
   color: #444;
 }
 
-.search-input::placeholder {
-  color: #fff;
+.form-control::placeholder {
+  color: #fff !important;
 }
 
 html, body {
