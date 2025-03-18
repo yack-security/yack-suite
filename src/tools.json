@@ -32,7 +32,7 @@
    "description": "Just another C2 Redirector using CloudFlare. Support multiple C2 and multiple domains. Support for websocket listener.",
    "website": "https://github.com/som3canadian/Cloudflare-Redirector",
    "github": "https://github.com/som3canadian/Cloudflare-Redirector",
-   "tags": ["C2", "cloudflare"]"
+   "tags": ["C2", "cloudflare"]
   },
   {
     "name": "Yack AttackForge Tooling",
