@@ -28,6 +28,13 @@
     "tags": ["weakpass"]
   },
   {
+   "name":"Cloudflare-Redirector",
+   "description": "Just another C2 Redirector using CloudFlare. Support multiple C2 and multiple domains. Support for websocket listener.",
+   "website": "https://github.com/som3canadian/Cloudflare-Redirector",
+   "github": "https://github.com/som3canadian/Cloudflare-Redirector",
+   "tags": ["C2", "cloudflare"]"
+  },
+  {
     "name": "Yack AttackForge Tooling",
     "description": "Tools made by Yack for interacting with the AttackForge REST API and events API.",
     "website": "https://github.com/yack-security/attackforge-tools",
@@ -86,7 +93,7 @@
   {
     "name": "Cloudflare-KV-Manager",
     "description": "The missing tool for your Cloudflare KV. A more complete and simple solution for managing Cloudflare KV storage. Include a web interface.",
-    "website": "https://github.com/som3canadian/Cloudflare-KV-Manager",
+    "website": "https://kv-demo.somecanadian.com",
     "github": "https://github.com/som3canadian/Cloudflare-KV-Manager",
     "tags": ["cloudflare"]
   }
