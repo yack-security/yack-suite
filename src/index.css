@@ -425,3 +425,30 @@ h1, h2, h3, h4, h5, h6 {
 .row.g-3 {
   --bs-gutter-y: 1.5rem;
 }
+
+/* Last updated timestamp */
+.last-updated {
+  color: #a0a0a0;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.last-updated small {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 3px;
+  /* background-color: rgba(0, 0, 0, 0.1); */
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-select:hover {
+  border-color: #3beabc;
+}
+
+/* Sort dropdown specific styles */
+#sort-option {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}

@@ -41,7 +41,7 @@
     <div class="filter-controls mb-4">
       <div class="row g-3">
         <!-- Search Bar -->
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
           <div class="input-group">
             <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
             <input type="text" id="search-input" class="form-control" placeholder="Search tools...">
@@ -49,10 +49,19 @@
         </div>
 
         <!-- Tag Filter -->
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-3">
           <select id="tag-filter" class="form-select">
             <option value="">All Tags</option>
             <!-- Tags will be populated dynamically -->
+          </select>
+        </div>
+
+        <!-- Sort Options -->
+        <div class="col-6 col-md-3">
+          <select id="sort-option" class="form-select">
+            <option value="default">Last Updated</option>
+            <option value="updated-newest">Newest First</option>
+            <option value="updated-oldest">Oldest First</option>
           </select>
         </div>
       </div>
@@ -153,6 +162,7 @@
     // Global variables
     let allTools = [];
     let filteredTools = [];
+    let repoInfoCache = {}; // Cache for repository information
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', () => {
@@ -162,6 +172,7 @@
       // Set up event listeners
       document.getElementById('search-input').addEventListener('input', applyFilters);
       document.getElementById('tag-filter').addEventListener('change', applyFilters);
+      document.getElementById('sort-option').addEventListener('change', applyFilters);
       document.getElementById('clear-filters').addEventListener('click', clearFilters);
     });
 
@@ -175,6 +186,9 @@
 
           // Populate filters
           populateFilters(tools);
+
+          // Fetch repository information for all tools
+          fetchRepoInfo(tools);
 
           // Display all tools initially
           displayTools(tools);
@@ -210,10 +224,83 @@
       });
     }
 
+    // Fetch repository information for all tools
+    function fetchRepoInfo(tools) {
+      // Extract GitHub URLs from tools
+      const repoUrls = tools.map(tool => tool.github).filter(url => url && url.includes('github.com'));
+
+      // Use the bulk API endpoint to get info for all repos at once
+      fetch('/api/repos-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ repos: repoUrls })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Store repository info in cache
+        repoInfoCache = data;
+
+        // Attach repo info to tool objects
+        attachRepoInfoToTools();
+
+        // Update displayed tools with the new info
+        updateToolsWithRepoInfo();
+
+        // Apply filters to update order if needed
+        applyFilters();
+      })
+      .catch(error => {
+        console.error("Error fetching repository information:", error);
+      });
+    }
+
+    // Attach repository info to the tool objects
+    function attachRepoInfoToTools() {
+      allTools.forEach(tool => {
+        if (tool.github && repoInfoCache[tool.github]) {
+          tool.repoInfo = repoInfoCache[tool.github];
+          tool.lastUpdated = tool.repoInfo.last_updated ? new Date(tool.repoInfo.last_updated) : null;
+        } else {
+          tool.repoInfo = null;
+          tool.lastUpdated = null;
+        }
+      });
+    }
+
+    // Update the displayed tools with repository information
+    function updateToolsWithRepoInfo() {
+      const toolCards = document.querySelectorAll('.card-custom');
+
+      toolCards.forEach(card => {
+        const githubUrl = card.dataset.github;
+        if (githubUrl && repoInfoCache[githubUrl]) {
+          const repoInfo = repoInfoCache[githubUrl];
+
+          // Find or create the last updated element
+          let lastUpdatedEl = card.querySelector('.last-updated');
+          if (!lastUpdatedEl) {
+            lastUpdatedEl = document.createElement('div');
+            lastUpdatedEl.className = 'last-updated';
+            card.querySelector('.card-footer').appendChild(lastUpdatedEl);
+          }
+
+          // Format the date
+          const lastUpdated = repoInfo.last_updated ? new Date(repoInfo.last_updated) : null;
+          const formattedDate = lastUpdated ? lastUpdated.toLocaleDateString() : 'Unknown';
+
+          // Update the element
+          lastUpdatedEl.innerHTML = `<small>Last Updated: ${formattedDate}</small>`;
+        }
+      });
+    }
+
     // Apply all filters
     function applyFilters() {
       const searchTerm = document.getElementById('search-input').value.toLowerCase();
       const selectedTag = document.getElementById('tag-filter').value;
+      const sortOption = document.getElementById('sort-option').value;
 
       // Filter tools based on criteria
       filteredTools = allTools.filter(tool => {
@@ -228,6 +315,23 @@
         return matchesSearch && matchesTag;
       });
 
+      // Sort tools based on the selected option
+      if (sortOption !== 'default') {
+        filteredTools.sort((a, b) => {
+          // If either tool doesn't have a lastUpdated value, put it at the end
+          if (!a.lastUpdated && !b.lastUpdated) return 0;
+          if (!a.lastUpdated) return 1;
+          if (!b.lastUpdated) return -1;
+
+          // Sort by date
+          if (sortOption === 'updated-newest') {
+            return b.lastUpdated - a.lastUpdated; // Newest first
+          } else {
+            return a.lastUpdated - b.lastUpdated; // Oldest first
+          }
+        });
+      }
+
       // Display filtered tools
       displayTools(filteredTools);
 
@@ -236,7 +340,7 @@
 
       // Show/hide clear filters button
       const clearFiltersBtn = document.getElementById('clear-filters');
-      const hasActiveFilters = searchTerm !== '' || selectedTag !== '';
+      const hasActiveFilters = searchTerm !== '' || selectedTag !== '' || sortOption !== 'default';
       clearFiltersBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
     }
 
@@ -254,6 +358,7 @@
     function clearFilters() {
       document.getElementById('search-input').value = '';
       document.getElementById('tag-filter').value = '';
+      document.getElementById('sort-option').value = 'default';
 
       // Re-apply filters (which will now show all)
       applyFilters();
@@ -286,7 +391,7 @@
 
         // Create card using standard bootstrap classes
         col.innerHTML = `
-          <div class="card card-custom h-100 d-flex flex-column">
+          <div class="card card-custom h-100 d-flex flex-column" data-github="${tool.github}">
             <div class="card-body flex-grow-1">
               <h5 class="card-title">${tool.name}</h5>
               <p class="card-text">${tool.description}</p>
@@ -296,31 +401,41 @@
                   .join("")}
               </div>
             </div>
-            <div class="card-footer bg-transparent border-0 mt-auto">
-              <a
-                href="${tool.website}"
-                class="btn btn-website me-2 mb-2 mb-sm-0"
-                target="_blank"
-                title="Website"
-                aria-label="Website"
-              >
-                <i class="bi bi-globe"></i>
-              </a>
-              <a
-                href="${tool.github}"
-                class="btn btn-github me-2 mb-2 mb-sm-0"
-                target="_blank"
-                title="GitHub"
-                aria-label="GitHub"
-              >
-                <i class="bi bi-github"></i>
-              </a>
+            <div class="card-footer bg-transparent border-0 mt-auto d-flex justify-content-between align-items-center">
+              <div>
+                <a
+                  href="${tool.website}"
+                  class="btn btn-website me-2 mb-2 mb-sm-0"
+                  target="_blank"
+                  title="Website"
+                  aria-label="Website"
+                >
+                  <i class="bi bi-globe"></i>
+                </a>
+                <a
+                  href="${tool.github}"
+                  class="btn btn-github me-2 mb-2 mb-sm-0"
+                  target="_blank"
+                  title="GitHub"
+                  aria-label="GitHub"
+                >
+                  <i class="bi bi-github"></i>
+                </a>
+              </div>
+              <div class="last-updated">
+                <small>Loading...</small>
+              </div>
             </div>
           </div>
         `;
 
         toolContainer.appendChild(col);
       });
+
+      // If we already have repo info cached, update the cards immediately
+      if (Object.keys(repoInfoCache).length > 0) {
+        updateToolsWithRepoInfo();
+      }
     }
   </script>
   <script
