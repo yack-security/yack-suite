@@ -16,7 +16,7 @@ const USER_AGENT = 'YackSuite-Tool-Status-Checker';
  * @param {string} repoFullName - Repository full name (owner/repo)
  * @returns {Promise<Object>} Repository information including last update time
  */
-async function getRepoInfo(repoFullName) {
+async function getRepoInfo(repoFullName, githubToken) {
   try {
     // Replace GitHub domain with API url if full GitHub URL was provided
     let repoPath = repoFullName;
@@ -37,7 +37,7 @@ async function getRepoInfo(repoFullName) {
       headers: {
         'User-Agent': USER_AGENT,
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${env.GITHUB_TOKEN}`
+        'Authorization': `Bearer ${githubToken}`
       }
     });
 
@@ -52,7 +52,7 @@ async function getRepoInfo(repoFullName) {
       headers: {
         'User-Agent': USER_AGENT,
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${env.GITHUB_TOKEN}`
+        'Authorization': `Bearer ${githubToken}`
       }
     });
 
@@ -94,6 +94,7 @@ async function getRepoInfo(repoFullName) {
 export async function onRequest(context) {
   const { request, env, next } = context;
   const url = new URL(request.url);
+  const githubToken = env.GITHUB_TOKEN;
 
   // Handle bulk repo info requests
   if (url.pathname === '/api/repos-info') {
@@ -122,7 +123,7 @@ export async function onRequest(context) {
       }
 
       // Fetch info for all repos in parallel
-      const repoInfoPromises = repos.map(repo => getRepoInfo(repo));
+      const repoInfoPromises = repos.map(repo => getRepoInfo(repo, githubToken));
       const repoInfoResults = await Promise.all(repoInfoPromises);
 
       // Create a map of repo URL to info
