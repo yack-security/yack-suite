@@ -4,97 +4,127 @@
     "description": "🔑 Simple secure password generator. Password generation should be simple and secure.",
     "website": "https://password.yack.one/",
     "github": "https://github.com/yack-security/pswd/tree/yack",
-    "tags": ["utility"]
+    "tags": [
+      "utility"
+    ]
   },
   {
     "name": "Lookup",
     "description": "Perform secure password hash lookups using the Range API without submitting sensitive data to the server.",
     "website": "https://lookup.yack.one",
     "github": "https://github.com/yack-security/weakpass/tree/main/tools/lookup",
-    "tags": ["weakpass"]
+    "tags": [
+      "weakpass"
+    ]
   },
   {
     "name": "Passgen",
     "description": "Generate a wordlist based on user-provided keywords for targeted password testing.",
     "website": "https://passgen.yack.one",
     "github": "https://github.com/yack-security/weakpass/tree/main/tools/passgen",
-    "tags": ["weakpass"]
+    "tags": [
+      "weakpass"
+    ]
   },
   {
     "name": "Passcheck",
     "description": "Discover if your password is in the weakpass_4 wordlist or vulnerable to advanced rule-based attacks.",
     "website": "https://passcheck.yack.one",
     "github": "https://github.com/yack-security/weakpass/tree/main/tools/passcheck",
-    "tags": ["weakpass"]
+    "tags": [
+      "weakpass"
+    ]
   },
   {
-   "name":"Cloudflare-Redirector",
-   "description": "Just another C2 Redirector using CloudFlare. Support multiple C2 and multiple domains. Support for websocket listener.",
-   "website": "https://github.com/som3canadian/Cloudflare-Redirector",
-   "github": "https://github.com/som3canadian/Cloudflare-Redirector",
-   "tags": ["C2", "cloudflare"]
+    "name": "Cloudflare-Redirector",
+    "description": "Just another C2 Redirector using CloudFlare. Support multiple C2 and multiple domains. Support for websocket listener.",
+    "website": "https://github.com/som3canadian/Cloudflare-Redirector",
+    "github": "https://github.com/som3canadian/Cloudflare-Redirector",
+    "tags": [
+      "C2",
+      "cloudflare"
+    ]
   },
   {
     "name": "Yack AttackForge Tooling",
     "description": "Tools made by Yack for interacting with the AttackForge REST API and events API.",
     "website": "https://github.com/yack-security/attackforge-tools",
     "github": "https://github.com/yack-security/attackforge-tools",
-    "tags": ["attackforge", "cloudflare"]
+    "tags": [
+      "attackforge",
+      "cloudflare"
+    ]
   },
   {
     "name": "IP Subnet Calculator",
     "description": "Calculates subnet masks for standard and non-standard IP ranges, calculates CIDR prefixes from subnet masks, calculates subnet masks from CIDR prefixes.",
     "website": "https://subnet.yack.one/",
     "github": "https://github.com/yack-security/IPSubnetCalculator/tree/yack",
-    "tags": ["utility"]
+    "tags": [
+      "utility"
+    ]
   },
   {
     "name": "Get Public IP",
     "description": "This is a simple Cloudflare Worker that returns your client public IP address. No extra stuff like tracking or ads, just your IP address.",
     "website": "https://ip.yack.one",
     "github": "https://github.com/yack-security/CFWorker_PublicIP",
-    "tags": ["utility"]
+    "tags": [
+      "utility"
+    ]
   },
   {
-    "name": "BloodHound Neo4j wrapper",
-    "description": "This tool help you manage multiple databases from bloodhound / neo4j.",
-    "website": "https://github.com/yack-security/BloodHound-Neo4j-wrapper",
-    "github": "https://github.com/yack-security/BloodHound-Neo4j-wrapper",
-    "tags": ["bloodhound"]
+    "name": "BloodHound_Toolkit",
+    "description": "BH Toolkit is a tool that helps you manage your BloodHound database and other functionalities.",
+    "website": "https://github.com/yack-security/BloodHound_Toolkit",
+    "github": "https://github.com/yack-security/BloodHound_Toolkit",
+    "tags": [
+      "bloodhound"
+    ]
   },
   {
     "name": "Get Cities",
     "description": "This Cloudflare Worker fetches city data from the Countries Now and allows API filtering by country, city name prefix, and the number of cities returned.",
     "website": "https://cities.yack.one",
     "github": "https://github.com/yack-security/CFWorker_GetCities",
-    "tags": ["utility"]
+    "tags": [
+      "utility"
+    ]
   },
   {
     "name": "Cloudflare Access Group IP updater",
     "description": "Cloudflare ZeroTrust Access Group IP updater.",
     "website": "https://github.com/som3canadian/cloudflare-access-group-ip-updater",
     "github": "https://github.com/som3canadian/cloudflare-access-group-ip-updater",
-    "tags": ["cloudflare"]
+    "tags": [
+      "cloudflare"
+    ]
   },
   {
     "name": "BloodHound CustomQueries Toolset",
     "description": "Tool to import your custom queries from BloodHound 'Legacy' to BloodHound 'Community'.",
     "website": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
     "github": "https://github.com/som3canadian/BloodHound_CustomQueries_Toolset",
-    "tags": ["bloodhound"]
+    "tags": [
+      "bloodhound"
+    ]
   },
   {
     "name": "Sharing is Caring",
     "description": "Compare the shares access between multiple users within your Active Directory environment.",
     "website": "https://github.com/yack-security/sharing_is_caring_v2",
     "github": "https://github.com/yack-security/sharing_is_caring_v2",
-    "tags": ["utility"]
+    "tags": [
+      "utility"
+    ]
   },
   {
     "name": "Cloudflare-KV-Manager",
     "description": "The missing tool for your Cloudflare KV. A more complete and simple solution for managing Cloudflare KV storage. Include a web interface.",
     "website": "https://kv-demo.somecanadian.com",
     "github": "https://github.com/som3canadian/Cloudflare-KV-Manager",
-    "tags": ["cloudflare"]
+    "tags": [
+      "cloudflare"
+    ]
   }
 ]
