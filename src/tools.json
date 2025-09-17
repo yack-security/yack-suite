@@ -83,6 +83,15 @@
     ]
   },
   {
+    "name": "token-refresh",
+    "description": "Burp extension to manage access and refresh tokens.",
+    "website": "https://github.com/yack-security/token-refresh/tree/yack",
+    "github": "https://github.com/yack-security/token-refresh/tree/yack",
+    "tags": [
+      "burp"
+    ]
+  },
+  {
     "name": "Get Cities",
     "description": "This Cloudflare Worker fetches city data from the Countries Now and allows API filtering by country, city name prefix, and the number of cities returned.",
     "website": "https://cities.yack.one",
