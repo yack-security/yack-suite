@@ -59,8 +59,7 @@
         <!-- Sort Options -->
         <div class="col-6 col-md-3">
           <select id="sort-option" class="form-select">
-            <option value="default">Last Updated</option>
-            <option value="updated-newest">Newest First</option>
+            <option value="latest-first">Latest First</option>
             <option value="updated-oldest">Oldest First</option>
           </select>
         </div>
@@ -316,21 +315,19 @@
       });
 
       // Sort tools based on the selected option
-      if (sortOption !== 'default') {
-        filteredTools.sort((a, b) => {
-          // If either tool doesn't have a lastUpdated value, put it at the end
-          if (!a.lastUpdated && !b.lastUpdated) return 0;
-          if (!a.lastUpdated) return 1;
-          if (!b.lastUpdated) return -1;
+      filteredTools.sort((a, b) => {
+        // If either tool doesn't have a lastUpdated value, put it at the end
+        if (!a.lastUpdated && !b.lastUpdated) return 0;
+        if (!a.lastUpdated) return 1;
+        if (!b.lastUpdated) return -1;
 
-          // Sort by date
-          if (sortOption === 'updated-newest') {
-            return b.lastUpdated - a.lastUpdated; // Newest first
-          } else {
-            return a.lastUpdated - b.lastUpdated; // Oldest first
-          }
-        });
-      }
+        // Sort by date
+        if (sortOption === 'latest-first') {
+          return b.lastUpdated - a.lastUpdated; // Latest first
+        } else {
+          return a.lastUpdated - b.lastUpdated; // Oldest first
+        }
+      });
 
       // Display filtered tools
       displayTools(filteredTools);
@@ -340,7 +337,7 @@
 
       // Show/hide clear filters button
       const clearFiltersBtn = document.getElementById('clear-filters');
-      const hasActiveFilters = searchTerm !== '' || selectedTag !== '' || sortOption !== 'default';
+      const hasActiveFilters = searchTerm !== '' || selectedTag !== '' || sortOption !== 'latest-first';
       clearFiltersBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
     }
 
@@ -358,7 +355,7 @@
     function clearFilters() {
       document.getElementById('search-input').value = '';
       document.getElementById('tag-filter').value = '';
-      document.getElementById('sort-option').value = 'default';
+      document.getElementById('sort-option').value = 'latest-first';
 
       // Re-apply filters (which will now show all)
       applyFilters();
