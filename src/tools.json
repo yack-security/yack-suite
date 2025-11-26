@@ -135,5 +135,14 @@
     "tags": [
       "cloudflare"
     ]
+  },
+  {
+    "name": "JWT Auditor",
+    "description": "Analyze, break, and understand your tokens like a pro.",
+    "website": "https://jwt.yack.one/",
+    "github": "https://github.com/dr34mhacks/jwtauditor/tree/main",
+    "tags": [
+      "utility"
+    ]
   }
 ]
