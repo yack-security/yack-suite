@@ -117,5 +117,12 @@
     "website": "https://cve.yack.one/",
     "github": "https://github.com/yack-security/YackCVE-MCP",
     "tags": ["utility"]
+  },
+  {
+    "name": "gMSADump",
+    "description": "Reads any gMSA password blobs the authenticating user can access and parses them into NTLM and AES keys.",
+    "website": "https://github.com/yack-security/gMSADump",
+    "github": "https://github.com/yack-security/gMSADump",
+    "tags": ["utility"]
   }
 ]
